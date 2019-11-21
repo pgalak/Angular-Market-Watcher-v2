@@ -1,0 +1,61 @@
+<div class="container">
+  <form>
+    <div class="row form-group form-inline searchBar">
+      <div class="col-lg-8 form-group form-inline searchBar">
+        <h5>Search by <code>SYMBOL</code> or <code>DESCRIPTION</code>: 
+          <input id="search-box" #searchBox (input)="search(searchBox.value)">
+        </h5>
+      </div>
+      <div class="col-lg-2">
+        <button 
+          class="btn btn-primary" 
+          (click)="onAdd()" 
+          [disabled]="!this.isShareSelected" 
+          [ngClass]="{'not-allowed': !this.isShareSelected }">+ Add to watch list</button>
+      </div> 
+      <div class="col-lg-1">
+        <button 
+          class="btn btn-danger"
+          (click)="onDelete()"
+          [disabled]="!this.watchListSelectedRow.isSelected"
+          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected}">Remove</button>
+      </div> 
+      <div class="col-lg-1">
+        <button 
+          class="btn btn-success"
+          (click)="onSave()">Save</button>
+      </div> 
+      
+    </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Symbol</th>
+              <th scope="col">Description</th>
+              <th scope="col">Currency</th>
+              <th scope="col">Stock Exchange</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              *ngFor="let data of (shares$ | async); let i = index " 
+              style="cursor: pointer;" 
+              [class.active]="i === selectedRow" 
+              (click)="onSelectedRow(i, data.Symbol)">
+              <td>{{data.Symbol}}</td>
+              <td>{{data.Name}}</td>
+              <td>{{ data.Currency }}</td>
+              <!-- <td>{{ data["StockExchangeLong"] }}</td> -->
+              <td>{{ data["Stock Exchange Long"] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <app-watchlist></app-watchlist>
+      </div>
+    </div>
+  </form>
+</div>

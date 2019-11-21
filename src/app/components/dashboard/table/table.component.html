@@ -1,0 +1,37 @@
+<div class="row">
+  <br><br>
+        <div class="alert alert-info" role="alert">
+            <h2>Watchlist</h2>
+            <button class="btn btn-warning" (click)="load()">Load</button>
+        </div>
+      <br>
+</div>
+<div class="row">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+      </tr>
+    </thead>
+    <tbody   >
+      <tr 
+        *ngFor="let data of stockData?.data; let i = index"
+        style="cursor: pointer"
+        [class.active]="i === row.id"
+        (click)="onSelectedRow(i, data.symbol)">
+        <td>{{data.name}}</td>
+        <td>{{data.stock_exchange_short}}</td>
+        <td>{{data.currency}}</td>
+        <td>{{data.price}}</td>
+        <!-- <td>
+          <i class="fas fa-arrow-up" style="font-size:30px;color:rgb(38, 189, 38)" *ngIf="data.price > data.close_yesterday else red else grey"></i>
+          <ng-template #red><i class="fas fa-arrow-down" style="font-size:30px;color:red"></i></ng-template>
+          <ng-template #grey><i class="fas fa-minus" style="font-size:30px;color:grey"></i></ng-template>
+        </td>
+        <td>
+          <button type="button" class="btn btn-info" (click)="onClick(data.symbol)">Watch</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
