@@ -14,6 +14,10 @@ export class TableService {
   obj: Symbol = {symbol: ''};
   private subscription: Subscription;
 
+  token1: string = 'nATGx8imsSAQNvvflDQnHtLy8sNeA5hpgTJWfmmhPWjUodvhoo7J4hUy9OZS';
+  token2: string = 'j5X3JaRlPPX5fKEeoLPR2LlMwoGcReUkXtL6FxSCGPx7U36R8KA6gaxPHHez';
+  token3: string = 'mwH1SNZWQBaX7Lpj4eTBrNvVmc0HPRTi3niNcOSx6kx1B8vTNxJnR29YGubO';
+
   constructor(private watchlistService: WatchlistService,
               private http: HttpClient) { }
 
@@ -29,18 +33,10 @@ export class TableService {
   }
 
   public loadShares() {
-    return this.http.get(`https://api.worldtradingdata.com/api/v1/stock?symbol=${this.symbolTable}&api_token=j5X3JaRlPPX5fKEeoLPR2LlMwoGcReUkXtL6FxSCGPx7U36R8KA6gaxPHHez`)
+    return this.http.get(`https://api.worldtradingdata.com/api/v1/stock?symbol=${this.symbolTable}&api_token=${this.token2}`)
   }
 
   destroy() {
     this.subscription.unsubscribe();
   }
 }
-// this.apiService.getIntraday().subscribe(data => this.intraArr = Object.keys(data.intraday).map(k => data.intraday[k].close)) 
-
-
-// nATGx8imsSAQNvvflDQnHtLy8sNeA5hpgTJWfmmhPWjUodvhoo7J4hUy9OZS
-
-// j5X3JaRlPPX5fKEeoLPR2LlMwoGcReUkXtL6FxSCGPx7U36R8KA6gaxPHHez
-
-// mwH1SNZWQBaX7Lpj4eTBrNvVmc0HPRTi3niNcOSx6kx1B8vTNxJnR29YGubO

@@ -1,3 +1,41 @@
-.table tr.active th {
+.table tr.active td {
   background-color:#5bc0de !important;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.in-the-middle {
+  text-align: center;
+  vertical-align: center;
+}
+
+.arrow-up {
+  margin-top: 10px;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  
+  border-bottom: 30px solid rgb(9, 189, 9);
+}
+
+.arrow-down {
+  margin-top: 10px;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  
+  border-top: 30px solid #f00;
+}
+
+.same {
+  margin-left: 8px;
+  margin-top: 15px;
+  height: 10px;
+  width: 30px;
+  border-left: 20px solid grey;
+  border-right: 20px solid grey;
 }

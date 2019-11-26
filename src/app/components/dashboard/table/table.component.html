@@ -1,13 +1,19 @@
 <div class="row">
-  <br><br>
-        <div class="alert alert-info" role="alert">
-            <h2>Watchlist</h2>
-            <button class="btn btn-warning" (click)="load()">Load</button>
-        </div>
-      <br>
+  <div class="col-lg-12">
+    <div class="row alert alert-info" role="alert">
+      <h2 class="in-the-middle">Watchlist</h2>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button 
+        class="btn btn-warning" 
+        (click)="load()"
+        [ngClass]="{'not-allowed': true}"
+        ><h5>Load</h5>
+      </button>
+    </div>
+  </div>
+  <br>
 </div>
 <div class="row">
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-dark table-hover">
     <thead>
       <tr>
         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
@@ -17,20 +23,16 @@
       <tr 
         *ngFor="let data of stockData?.data; let i = index"
         style="cursor: pointer"
-        [class.active]="i === row.id"
+        [class.active]="i === this.row.id"
         (click)="onSelectedRow(i, data.symbol)">
         <td>{{data.name}}</td>
         <td>{{data.stock_exchange_short}}</td>
         <td>{{data.currency}}</td>
         <td>{{data.price}}</td>
-        <!-- <td>
-          <i class="fas fa-arrow-up" style="font-size:30px;color:rgb(38, 189, 38)" *ngIf="data.price > data.close_yesterday else red else grey"></i>
-          <ng-template #red><i class="fas fa-arrow-down" style="font-size:30px;color:red"></i></ng-template>
-          <ng-template #grey><i class="fas fa-minus" style="font-size:30px;color:grey"></i></ng-template>
-        </td>
         <td>
-          <button type="button" class="btn btn-info" (click)="onClick(data.symbol)">Watch</button>
-        </td> -->
+          <div 
+          [ngClass]="{'arrow-up': data.price > data.close_yesterday,'arrow-down': data.price < data.close_yesterday, 'same': data.price === data.close_yesterday}"></div>
+        </td>
       </tr>
     </tbody>
   </table>

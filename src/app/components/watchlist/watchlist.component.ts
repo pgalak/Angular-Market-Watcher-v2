@@ -28,6 +28,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.wLSub = this.watchlistService.watchlistSub.subscribe(watchlist => {
       this.watchlist = watchlist;
     });
+    console.log(this.watchlist.length);
+    
   }
 
   onSelectedRow(index: number, symbol: string) {
