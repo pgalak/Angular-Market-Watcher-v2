@@ -8,7 +8,8 @@
     <tr 
       *ngFor="let symbol of watchlist; let i = index"
       style="cursor: pointer;"
-      [class.active]="i === row.id"
+      
+      appActive
       (click)="onSelectedRow(i, symbol.symbol)">
       <th class="in-the-middle"><h5>{{ symbol.symbol }}</h5></th>
     </tr>

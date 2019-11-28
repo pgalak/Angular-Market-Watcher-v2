@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-  private url = 'http://localhost:4000/data';
-  // private url = 'https://my-json-server.typicode.com/pgalak/mock-data/data';
+  // private url = 'http://localhost:4000/data';
+  private url = 'https://my-json-server.typicode.com/pgalak/mock-data/data';
 
   constructor(private http: HttpClient) {}
 

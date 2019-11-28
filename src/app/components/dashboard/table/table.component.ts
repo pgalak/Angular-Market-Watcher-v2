@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { TableService } from './table.service';
 import { WatchlistService, Row } from '../../watchlist/watchlist.service';
 import { GraphsService } from '../graphs/graphs.service';
 
@@ -9,9 +8,8 @@ import { GraphsService } from '../graphs/graphs.service';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit {
   isLoadDisabled: boolean = false;
-  table: Symbol[];
   stockData;
   headElements = ['Description', 'Stock Exchange', 'Currency', 'Price'];
 
@@ -22,17 +20,20 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   constructor(private watchlistService: WatchlistService,
-              private tableService: TableService,
               private graphsService: GraphsService) { }
 
   ngOnInit() {
-    this.tableService.getWatchlist();
+    this.watchlistService.loadWatchlist();
   }
 
   load() {
     this.isLoadDisabled = true;
-    this.tableService.loadShares().subscribe((data) => {
+    console.log('loaded');
+    
+    this.watchlistService.getShareData().subscribe(data => {
       this.stockData = data;
+      console.log(data);
+      
     });
   }
 
@@ -41,9 +42,5 @@ export class TableComponent implements OnInit, OnDestroy {
     this.row.symbol = symbol;
     this.row.isSelected = true;
     this.graphsService.changeSymbol(symbol);
-  }
-
-  ngOnDestroy() {
-    this.tableService.destroy();
   }
 }

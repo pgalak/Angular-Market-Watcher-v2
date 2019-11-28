@@ -10,15 +10,17 @@
         <button 
           class="btn btn-primary" 
           (click)="onAdd()" 
-          [disabled]="!this.isShareSelected" 
-          [ngClass]="{'not-allowed': !this.isShareSelected}">+ Add to watch list</button>
+          [disabled]="this.disabled" 
+          appActive
+          [ngClass]="{'not-allowed': !this.isShareSelected || this.disabled}">+ Add to watch list</button>
       </div> 
       <div class="col-lg-1">
         <button 
           class="btn btn-danger"
           (click)="onDelete()"
-          [disabled]="!this.watchListSelectedRow.isSelected"
-          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected}">Remove</button>
+          appActive
+          [disabled]="!this.watchListSelectedRow.isSelected || this.watchlist.length === 0 || this.disableRemoveButton"
+          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected || this.watchlistLength === 0}">Remove</button>
       </div> 
       <div class="col-lg-1">
         <button 
@@ -42,13 +44,13 @@
             <tr 
               *ngFor="let data of (shares$ | async); let i = index " 
               style="cursor: pointer;" 
-              [class.active]="i === selectedRow" 
+              appActive
               (click)="onSelectedRow(i, data.Symbol)">
               <td>{{data.Symbol}}</td>
               <td>{{data.Name}}</td>
               <td>{{ data.Currency }}</td>
-              <!-- <td>{{ data["StockExchangeLong"] }}</td> -->
-              <td>{{ data["Stock Exchange Long"] }}</td>
+              <td>{{ data["StockExchangeLong"] }}</td>
+              <!-- <td>{{ data["Stock Exchange Long"] }}</td> -->
             </tr>
           </tbody>
         </table>

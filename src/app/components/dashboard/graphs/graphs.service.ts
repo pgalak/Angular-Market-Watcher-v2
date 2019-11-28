@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, AsyncSubject } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
+
 export interface ApiData {
-  symbol: string;
   intraArr: string[];
   intraDateArr:  string[];
   histArr:  string[];
@@ -17,9 +18,7 @@ export class GraphsService {
   private symbolSource = new BehaviorSubject('');
   currentSymbol = this.symbolSource.asObservable();
 
-  token1: string = 'nATGx8imsSAQNvvflDQnHtLy8sNeA5hpgTJWfmmhPWjUodvhoo7J4hUy9OZS';
-  token2: string = 'j5X3JaRlPPX5fKEeoLPR2LlMwoGcReUkXtL6FxSCGPx7U36R8KA6gaxPHHez';
-  token3: string = 'mwH1SNZWQBaX7Lpj4eTBrNvVmc0HPRTi3niNcOSx6kx1B8vTNxJnR29YGubO';
+  token: string = environment.token[0];
 
   constructor(private http: HttpClient) {}
 
@@ -28,8 +27,8 @@ export class GraphsService {
   }
 
   public getHistoricalAndIntradayData(symbol: string) {
-    let intradayData = this.http.get(`https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=${this.token2}`);
-    let historicalData = this.http.get(`https://api.worldtradingdata.com/api/v1/history?symbol=${symbol}&sort=newest&api_token=${this.token2}`);
+    let intradayData = this.http.get(`https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=${this.token}`);
+    let historicalData = this.http.get(`https://api.worldtradingdata.com/api/v1/history?symbol=${symbol}&sort=newest&api_token=${this.token}`);
 
     return forkJoin([intradayData, historicalData]);
   }

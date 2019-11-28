@@ -19,8 +19,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private watchlistService: WatchlistService,
-
+    private watchlistService: WatchlistService
   ) { }
 
   ngOnInit() {

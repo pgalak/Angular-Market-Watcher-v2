@@ -1,0 +1,22 @@
+a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  // color: #818181;
+  color: #5e5d5d;
+  display: block;
+}
+
+a:hover {
+  color: #f1f1f1;
+}
+
+img {
+  align-self: auto;
+}
+
+.current {
+  border-radius: 25px;
+  background-color: #9b9b9b;
+  color: rgb(226, 248, 99);
+}

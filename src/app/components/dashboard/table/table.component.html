@@ -23,7 +23,7 @@
       <tr 
         *ngFor="let data of stockData?.data; let i = index"
         style="cursor: pointer"
-        [class.active]="i === this.row.id"
+        appActive
         (click)="onSelectedRow(i, data.symbol)">
         <td>{{data.name}}</td>
         <td>{{data.stock_exchange_short}}</td>

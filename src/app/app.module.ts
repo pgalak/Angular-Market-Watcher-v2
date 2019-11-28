@@ -15,6 +15,7 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableComponent } from './components/dashboard/table/table.component';
 import { GraphsComponent } from './components/dashboard/graphs/graphs.component';
+import { ActiveDirective } from './components/shared/active.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { GraphsComponent } from './components/dashboard/graphs/graphs.component'
     WatchlistComponent,
     DashboardComponent,
     TableComponent,
-    GraphsComponent
+    GraphsComponent,
+    ActiveDirective
   ],
   imports: [
     BrowserModule,

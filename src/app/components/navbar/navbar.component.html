@@ -1,3 +1,24 @@
 <nav class="navbar navbar-expand navbar-dark bg-secondary mb-4">
-  <h1 style="color:white;">Market Watcher</h1>
+  <!-- <div class="container"> -->
+    <h1 style="color:white;">Market Watcher&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+              <a routerLink="/dashboard" routerLinkActive="current">
+                <!-- <img height="90" width="90" src="../../../assets/dashboard.png"> -->
+                Dashboard
+              </a>
+          </li>
+          <li class="nav-item">
+              <a routerLink="/symbols" routerLinkActive="current">
+                <!-- <img height="90" width="90" src="../../../assets/table-icon.jpg"> -->
+                Symbols
+              </a>
+          </li>
+        </ul>
+      </div>
+  
+
 </nav>
+
+<router-outlet></router-outlet>
