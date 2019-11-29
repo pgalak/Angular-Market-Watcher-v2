@@ -17,6 +17,7 @@ import { TableComponent } from './components/dashboard/table/table.component';
 import { GraphsComponent } from './components/dashboard/graphs/graphs.component';
 import { ActiveDirective } from './components/shared/active.directive';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loa
     TableComponent,
     GraphsComponent,
     ActiveDirective,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
