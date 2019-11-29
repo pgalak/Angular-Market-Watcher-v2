@@ -24,6 +24,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   apiData: ApiData;
   arr: number[] = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3];
   private graphServiceSymbolSub: Subscription;
+  private plotSub: Subscription;
   plotReady: boolean = false;
   str = "2019-11-25 14:58:00";
 
@@ -119,7 +120,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   plot() {
     this.emptyDataArrays();
 
-    this.graphService.getHistoricalAndIntradayData(this.intradayChart.title.text).subscribe((dataList) => {
+    this.plotSub = this.graphService.getHistoricalAndIntradayData(this.intradayChart.title.text).subscribe((dataList) => {
 
       let len1 = Object.values(Object.values(dataList[0]['intraday'])).length;      
       let len2 = Object.values(Object.values(dataList[1]['history'])).length;
@@ -164,6 +165,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.graphServiceSymbolSub.unsubscribe();
+    this.plotSub.unsubscribe();
+    this.graphService.emptySymbol();
     this.emptyDataArrays();
     this.intradayChart.title.text = '';
     this.plotReady = false;

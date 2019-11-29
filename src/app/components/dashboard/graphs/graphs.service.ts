@@ -26,6 +26,10 @@ export class GraphsService {
     this.symbolSource.next(symbol);
   }
 
+  emptySymbol() {
+    this.symbolSource.next('');
+  }
+
   public getHistoricalAndIntradayData(symbol: string) {
     let intradayData = this.http.get(`https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=${this.token}`);
     let historicalData = this.http.get(`https://api.worldtradingdata.com/api/v1/history?symbol=${symbol}&sort=newest&api_token=${this.token}`);
