@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs/operators';
 
 import { DataService } from 'src/app/data.service';
 import { Share } from '../../share';
@@ -24,6 +24,8 @@ export class SymbolsComponent implements OnInit, OnDestroy{
   disabled: boolean;
   watchlist: string[] = [];
   disableRemoveButton: boolean;
+  isLoading: boolean = false;
+  noResults: boolean = true;
 
   constructor(public dataService: DataService,
               public watchlistService: WatchlistService) 
@@ -31,6 +33,12 @@ export class SymbolsComponent implements OnInit, OnDestroy{
 
   search(term: string): void {
     this.searchTerms.next(term);
+    this.isLoading = true;
+    this.noResults = false;
+    setTimeout(() => this.isLoading = false, 400);
+    if(!term) {
+      setTimeout(() => this.noResults = true, 500);
+    }
   }
 
   ngOnInit(): void {
@@ -53,7 +61,6 @@ export class SymbolsComponent implements OnInit, OnDestroy{
   }
 
   onSelectedRow(index: number, symbol: string) {
-    console.log(this.watchlist);
     
     this.isShareSelected = true;
     this.selectedRow = index;
@@ -62,7 +69,6 @@ export class SymbolsComponent implements OnInit, OnDestroy{
     if(this.disabled === true ) return;
     
     if(this.watchlist.includes(symbol)){
-      console.log('symbol exists');
       this.disabled = true;
       return;
     }
@@ -79,7 +85,6 @@ export class SymbolsComponent implements OnInit, OnDestroy{
 
   onDelete() {
     this.watchlist.splice(this.watchlist.indexOf(this.selectedSymbol), 1);
-    console.log('updated watchlist',this.watchlist);
     
     this.watchlistService.deleteSymbol(this.watchListSelectedRow);
     this.emptyValues();

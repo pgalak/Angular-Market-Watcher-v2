@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, forkJoin, AsyncSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 
@@ -18,7 +18,7 @@ export class GraphsService {
   private symbolSource = new BehaviorSubject('');
   currentSymbol = this.symbolSource.asObservable();
 
-  token: string = environment.token[0];
+  token: string = environment.token[1];
 
   constructor(private http: HttpClient) {}
 

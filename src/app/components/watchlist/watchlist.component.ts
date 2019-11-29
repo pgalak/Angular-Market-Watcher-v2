@@ -27,8 +27,6 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.wLSub = this.watchlistService.watchlistSub.subscribe(watchlist => {
       this.watchlist = watchlist;
     });
-    console.log(this.watchlist.length);
-    
   }
 
   onSelectedRow(index: number, symbol: string) {
@@ -36,7 +34,6 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.row.symbol = symbol;
     this.row.isSelected = true;
     this.watchlistService.selectedRow.next(this.row);
-    console.log(this.row);
   }
 
   ngOnDestroy() {

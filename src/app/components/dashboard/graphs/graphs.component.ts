@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 
 import * as Highcharts from 'highcharts';
 import { GraphsService, ApiData } from './graphs.service';
-import { flatMap, tap, map, switchMap } from 'rxjs/operators';
 
 declare let require: any;
 let Boost = require('highcharts/modules/boost');
@@ -24,8 +23,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   apiData: ApiData;
   arr: number[] = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3];
-  private graphServiceSub: Subscription;
   private graphServiceSymbolSub: Subscription;
+  plotReady: boolean = false;
   str = "2019-11-25 14:58:00";
 
   public intradayChart: any = {
@@ -110,56 +109,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.plotCharts();
     this.graphServiceSymbolSub = this.graphService.currentSymbol.subscribe(symbol => {
       this.intradayChart.title.text = symbol;
-      console.log(symbol);
+      this.plotReady = true;
+      this.plot();
     });
-
-    // this.plot();
-
-    // this.graphService.currentSymbol.pipe(
-    //   map((symbol: string) => {
-    //     this.apiData.symbol = symbol;
-    //     console.log(symbol);
-    //     return symbol;
-    //   }),
-    //   tap(res => {
-    //     console.log(res);
-        
-    //   })
-    // )
-
-    // this.graphService.currentSymbol.pipe(
-    //   switchMap((symbol: string) => {
-    //     this.apiData.symbol = symbol;
-    //     console.log(symbol);
-        
-    //     return this.graphService.getHistoricalAndIntradayData(symbol);
-    //   }),
-    //   tap((dataList) => {
-    //     let len1 = Object.values(Object.values(dataList[0]['intraday'])).length;      
-    //     let len2 = Object.values(Object.values(dataList[1]['history'])).length;
-  
-    //     for(let i = 0; i < len1; i+=Math.round(len1/10)){
-    //       this.apiData.intraArr.unshift(Object.values(Object.values(dataList[0]['intraday']))[i]['close']);
-    //       this.apiData.intraDateArr.unshift(Object.values(Object.keys(dataList[0]['intraday']))[i]);
-    //     }
-  
-    //     for(let i = 0; i < len2; i+=Math.round(len2/10)){
-    //       this.apiData.histArr.unshift(Object.values(Object.values(dataList[1]['history']))[i]['close']);
-    //       this.apiData.histDateArr.unshift(Object.values(Object.keys(dataList[1]['history']))[i]);
-    //     }
-  
-    //     this.intradayChart.xAxis.categories = this.apiData.intraDateArr.map(el => el.slice(11, -3));
-    //     this.intradayChart.series[0].data = [...this.apiData.intraArr.map(Number)];
-    //     this.historyChart.xAxis.categories = [...this.apiData.histDateArr];
-    //     this.historyChart.series[1].data = [...this.apiData.histArr.map(Number)];
-    //     console.log(this.intradayChart.xAxis.categories);
-        
-    //     this.plotCharts();
-    //   })
-    // )
   }
 
   plot() {
@@ -186,7 +140,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
       this.intradayChart.series[0].data = [...this.apiData.intraArr.map(Number)];
       this.historyChart.xAxis.categories = [...this.apiData.histDateArr];
       this.historyChart.series[1].data = [...this.apiData.histArr.map(Number)];
-      console.log(this.intradayChart.title.text);
       
       this.plotCharts();
     });
@@ -211,5 +164,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.graphServiceSymbolSub.unsubscribe();
+    this.emptyDataArrays();
+    this.intradayChart.title.text = '';
+    this.plotReady = false;
   }
 }

@@ -20,7 +20,7 @@
           (click)="onDelete()"
           appActive
           [disabled]="!this.watchListSelectedRow.isSelected || this.watchlist.length === 0 || this.disableRemoveButton"
-          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected || this.watchlistLength === 0}">Remove</button>
+          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected || this.watchlist.length === 0}">Remove</button>
       </div> 
       <div class="col-lg-1">
         <button 
@@ -41,6 +41,16 @@
             </tr>
           </thead>
           <tbody>
+            <h3 *ngIf="noResults">
+              No Results
+            </h3>
+            <tr *ngIf="isLoading">
+              <td>
+                <div style="text-align: center;">
+                  <app-loading-spinner></app-loading-spinner>
+                </div>
+              </td>
+            </tr>
             <tr 
               *ngFor="let data of (shares$ | async); let i = index " 
               style="cursor: pointer;" 

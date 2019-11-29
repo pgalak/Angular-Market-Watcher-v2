@@ -28,12 +28,8 @@ export class TableComponent implements OnInit {
 
   load() {
     this.isLoadDisabled = true;
-    console.log('loaded');
-    
     this.watchlistService.getShareData().subscribe(data => {
       this.stockData = data;
-      console.log(data);
-      
     });
   }
 

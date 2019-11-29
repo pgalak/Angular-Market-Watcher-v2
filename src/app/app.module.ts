@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableComponent } from './components/dashboard/table/table.component';
 import { GraphsComponent } from './components/dashboard/graphs/graphs.component';
 import { ActiveDirective } from './components/shared/active.directive';
+import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ActiveDirective } from './components/shared/active.directive';
     DashboardComponent,
     TableComponent,
     GraphsComponent,
-    ActiveDirective
+    ActiveDirective,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
