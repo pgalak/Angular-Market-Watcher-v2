@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { DataService } from 'src/app/data.service';
 import { Share } from '../../share';
@@ -35,19 +35,30 @@ export class SymbolsComponent implements OnInit, OnDestroy{
     this.searchTerms.next(term);
     this.isLoading = true;
     this.noResults = false;
-    setTimeout(() => this.isLoading = false, 400);
-    if(!term) {
-      setTimeout(() => this.noResults = true, 500);
-    }
   }
+
 
   ngOnInit(): void {
     this.watchlistService.loadWatchlist();
     this.shares$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => this.dataService.searchShares(term))
+      switchMap((term: string) => this.dataService.searchShares(term)
+        .pipe(
+          tap((term) => {
+            if(term) {
+              this.isLoading = false;
+              if(term.length === 0){
+                this.noResults = true;
+              }
+            } else {
+              this.isLoading = true;
+            }
+          })
+        )
+      )
     );
+    
 
     this.selectedRowsubscription.add(this.watchlistService.selectedRow.subscribe( watchlistSelectedRow => {
         this.watchListSelectedRow = watchlistSelectedRow;

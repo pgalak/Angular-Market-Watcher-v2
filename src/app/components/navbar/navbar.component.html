@@ -1,25 +1,21 @@
-<nav class="navbar navbar-expand navbar-dark bg-secondary mb-4">
-  <!-- <div class="container"> -->
-    <h1 style="color:white;">Market Watcher&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-              <a routerLink="/dashboard" routerLinkActive="current">
-                Dashboard&nbsp;
-              </a>
-          </li>
-          <li class="nav-item">
-              <a routerLink="/symbols" routerLinkActive="current">
-                Symbols&nbsp;
-              </a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/about" routerLinkActive="current">About&nbsp;</a>
-          </li>
-        </ul>
-      </div>
-  
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary mb-4">
+  <h1 style="color:white;">Market Watcher&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+  <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    &#9776;
+  </button>
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLinkActive="current" routerLink="/dashboard">Dashboard&nbsp;</a>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="current" routerLink="/symbols">Symbols&nbsp;</a>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="current" routerLink="/about">About&nbsp;</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-
+  
 <router-outlet></router-outlet>

@@ -3,31 +3,26 @@
     <div class="row form-group form-inline searchBar">
       <div class="col-lg-8 form-group form-inline searchBar">
         <h5>Search by <code>SYMBOL</code> or <code>DESCRIPTION</code>: 
-          <input id="search-box" #searchBox (input)="search(searchBox.value)">
+          <input id="search-box" #searchBox (input)="search(searchBox.value)" autocomplete="off">
         </h5>
       </div>
-      <div class="col-lg-2">
-        <button 
-          class="btn btn-primary" 
-          (click)="onAdd()" 
-          [disabled]="this.disabled" 
-          appActive
-          [ngClass]="{'not-allowed': !this.isShareSelected || this.disabled}">+ Add to watch list</button>
-      </div> 
-      <div class="col-lg-1">
-        <button 
-          class="btn btn-danger"
-          (click)="onDelete()"
-          appActive
-          [disabled]="!this.watchListSelectedRow.isSelected || this.watchlist.length === 0 || this.disableRemoveButton"
-          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected || this.watchlist.length === 0}">Remove</button>
-      </div> 
-      <div class="col-lg-1">
-        <button 
-          class="btn btn-success"
-          (click)="onSave()">Save</button>
-      </div> 
-      
+      <div class="col-lg-4 btn-toolbar">
+          <button 
+            class="btn btn-primary mr-1 mb-1" 
+            (click)="onAdd()" 
+            [disabled]="this.disabled" 
+            appActive
+            [ngClass]="{'not-allowed': !this.isShareSelected || this.disabled}">Add to Watchlist</button>
+          <button 
+            class="btn btn-danger mr-1 mb-1"
+            (click)="onDelete()"
+            appActive
+            [disabled]="!this.watchListSelectedRow.isSelected || this.watchlist.length === 0 || this.disableRemoveButton"
+            [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected || this.watchlist.length === 0}">Remove</button>
+          <button 
+            class="btn btn-success mb-1"
+            (click)="onSave()">Save</button>
+      </div>
     </div>
     <div class="row">
       <div class="col-lg-8">
@@ -41,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <h3 *ngIf="noResults">
+            <h3 *ngIf="(!searchBox.value && !isLoading) || this.noResults" class="in-the-middle">
               No Results
             </h3>
             <tr *ngIf="isLoading">

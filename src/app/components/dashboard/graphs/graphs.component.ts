@@ -22,11 +22,9 @@ noData(Highcharts);
 export class GraphsComponent implements OnInit, OnDestroy {
 
   apiData: ApiData;
-  arr: number[] = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3];
   private graphServiceSymbolSub: Subscription;
   private plotSub: Subscription;
   plotReady: boolean = false;
-  str = "2019-11-25 14:58:00";
 
   public intradayChart: any = {
     chart: {
