@@ -18,6 +18,7 @@ import { GraphsComponent } from './components/dashboard/graphs/graphs.component'
 import { ActiveDirective } from './components/shared/active.directive';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 import { AboutComponent } from './components/about/about.component';
+import { AlertComponent } from './components/shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AboutComponent } from './components/about/about.component';
     GraphsComponent,
     ActiveDirective,
     LoadingSpinnerComponent,
-    AboutComponent
+    AboutComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

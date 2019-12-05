@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class DataService {
   // private url = 'http://localhost:4000/data';
   private url = 'https://my-json-server.typicode.com/pgalak/mock-data/data';
+  // private firebaseUrl = 'https://angular-market-watcher.firebaseio.com/data.json';
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +20,5 @@ export class DataService {
       return of([]);
     }    
     return this.http.get<Share[]>(`${this.url}/?q=${term}`);
-    
   }
 }

@@ -25,6 +25,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private graphServiceSymbolSub: Subscription;
   private plotSub: Subscription;
   plotReady: boolean = false;
+  error: string = null;
 
   public intradayChart: any = {
     chart: {
@@ -110,7 +111,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.graphServiceSymbolSub = this.graphService.currentSymbol.subscribe(symbol => {
       this.intradayChart.title.text = symbol;
-      this.plotReady = true;
       this.plot();
     });
   }
@@ -118,30 +118,36 @@ export class GraphsComponent implements OnInit, OnDestroy {
   plot() {
     this.emptyDataArrays();
 
-    this.plotSub = this.graphService.getHistoricalAndIntradayData(this.intradayChart.title.text).subscribe((dataList) => {
+    this.plotSub = this.graphService.getHistoricalAndIntradayData(this.intradayChart.title.text).subscribe(
+      dataList => {
+        this.plotReady = true;
+        let len1 = Object.values(Object.values(dataList[0]['intraday'])).length;      
+        let len2 = Object.values(Object.values(dataList[1]['history'])).length;
 
-      let len1 = Object.values(Object.values(dataList[0]['intraday'])).length;      
-      let len2 = Object.values(Object.values(dataList[1]['history'])).length;
+        // console.log(Object.keys(dataList[0]['intraday']).map(k => +dataList[0]['intraday'][k]['close']));
 
-      // console.log(Object.keys(dataList[0]['intraday']).map(k => +dataList[0]['intraday'][k]['close']));
+        for(let i = 0; i < len1; i+=Math.round(len1/10)){
+          this.apiData.intraArr.unshift(Object.values(Object.values(dataList[0]['intraday']))[i]['close']);
+          this.apiData.intraDateArr.unshift(Object.values(Object.keys(dataList[0]['intraday']))[i]);
+        }
 
-      for(let i = 0; i < len1; i+=Math.round(len1/10)){
-        this.apiData.intraArr.unshift(Object.values(Object.values(dataList[0]['intraday']))[i]['close']);
-        this.apiData.intraDateArr.unshift(Object.values(Object.keys(dataList[0]['intraday']))[i]);
-      }
+        for(let i = 0; i < len2; i+=Math.round(len2/10)){
+          this.apiData.histArr.unshift(Object.values(Object.values(dataList[1]['history']))[i]['close']);
+          this.apiData.histDateArr.unshift(Object.values(Object.keys(dataList[1]['history']))[i]);
+        }
 
-      for(let i = 0; i < len2; i+=Math.round(len2/10)){
-        this.apiData.histArr.unshift(Object.values(Object.values(dataList[1]['history']))[i]['close']);
-        this.apiData.histDateArr.unshift(Object.values(Object.keys(dataList[1]['history']))[i]);
-      }
+        this.intradayChart.xAxis.categories = this.apiData.intraDateArr.map(el => el.slice(11, -3));
+        this.intradayChart.series[0].data = [...this.apiData.intraArr.map(Number)];
+        this.historyChart.xAxis.categories = [...this.apiData.histDateArr];
+        this.historyChart.series[1].data = [...this.apiData.histArr.map(Number)];
 
-      this.intradayChart.xAxis.categories = this.apiData.intraDateArr.map(el => el.slice(11, -3));
-      this.intradayChart.series[0].data = [...this.apiData.intraArr.map(Number)];
-      this.historyChart.xAxis.categories = [...this.apiData.histDateArr];
-      this.historyChart.series[1].data = [...this.apiData.histArr.map(Number)];
-      
-      this.plotCharts();
-    });
+        
+        this.plotCharts();
+      },
+      errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+      });
   }
 
   emptyDataArrays() {
