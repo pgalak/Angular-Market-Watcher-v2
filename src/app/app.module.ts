@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SymbolsComponent } from './components/symbols/symbols.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableComponent } from './components/dashboard/table/table.component';
@@ -19,13 +18,13 @@ import { ActiveDirective } from './components/shared/active.directive';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 import { AboutComponent } from './components/about/about.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SymbolsComponent,
     NavbarComponent,
-    SidebarComponent,
     WatchlistComponent,
     DashboardComponent,
     TableComponent,
@@ -33,7 +32,8 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     ActiveDirective,
     LoadingSpinnerComponent,
     AboutComponent,
-    AlertComponent
+    AlertComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
