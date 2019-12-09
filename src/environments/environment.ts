@@ -6,7 +6,9 @@ export const environment = {
   production: false,
   token: 
     ['nATGx8imsSAQNvvflDQnHtLy8sNeA5hpgTJWfmmhPWjUodvhoo7J4hUy9OZS',
-     'mwH1SNZWQBaX7Lpj4eTBrNvVmc0HPRTi3niNcOSx6kx1B8vTNxJnR29YGubO']
+     'mwH1SNZWQBaX7Lpj4eTBrNvVmc0HPRTi3niNcOSx6kx1B8vTNxJnR29YGubO'],
+  signUpToken: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCawCPoAfAlcgmavwDYeoCd67phA9KT_Y',
+  loginToken: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCCawCPoAfAlcgmavwDYeoCd67phA9KT_Y' 
 };
 
 /*
